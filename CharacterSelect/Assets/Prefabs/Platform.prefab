@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indexValue: {fileID: 8246954890404597531}
   danceMoveName: {fileID: 6572472752452786605}
+  enlargeSize: {x: 1.3, y: 1.3, z: 1.3}
 --- !u!1 &1041680199980086265
 GameObject:
   m_ObjectHideFlags: 0

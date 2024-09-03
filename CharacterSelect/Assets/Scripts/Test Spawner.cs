@@ -28,7 +28,7 @@ public class TestSpawner : MonoBehaviour
         {
             platformSpawnPosition.x -= 5.0f;
             var plat = Instantiate(platForm, platformSpawnPosition, quaternion.identity);
-            plat.SetIndexValue(i, animHolder.animations[i].name);
+            plat.SetDanceName(i, animHolder.animations[i].name);
 
             var characterSpawnPosition = platformSpawnPosition;
             characterSpawnPosition.y += 0.2f;
