@@ -12,6 +12,7 @@ public class ScrollViewManager : MonoBehaviour
 
     [SerializeField] private float scrollDistance = 5f;
     [SerializeField] private int currentIndex = 0; // Index of the currently displayed middle platform
+    [SerializeField] private Ease easeType = Ease.Linear;
     private int maxIndex;
     
     public List<GameObject> spawnedObjects = new List<GameObject>();
@@ -75,6 +76,7 @@ public class ScrollViewManager : MonoBehaviour
             targetPlatformPos.x = presentPlatformPos.x + scrollDistance;
 
             yield return LMotion.Create(presentPlatformPos, targetPlatformPos, scrollSpeed)
+                .WithEase(easeType)
                 .BindToPosition(platform.transform);
 
             if (i == currentIndex)

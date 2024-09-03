@@ -1328,6 +1328,7 @@ MonoBehaviour:
   scrollSpeed: 0.5
   scrollDistance: 5
   currentIndex: 3
+  easeType: 1
   spawnedObjects: []
 --- !u!114 &1276668192
 MonoBehaviour:
