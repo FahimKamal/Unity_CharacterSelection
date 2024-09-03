@@ -7,99 +7,88 @@ using UnityEngine;
 
 public class ScrollViewManager : MonoBehaviour
 {
-    [SerializeField] private Transform leftTransform;
-    [SerializeField] private Transform middleTransform;
-    [SerializeField] private Transform rightTransform;
-
-    [SerializeField] private List<GameObject> platforms; // List to hold platform GameObjects
+    [SerializeField] private TestSpawner testSpawner;
     [SerializeField] private float scrollSpeed = 0.5f; // Speed of the scrolling animation
 
-    private int currentIndex = 0; // Index of the currently displayed middle platform
+    [SerializeField] private float scrollDistance = 5f;
+    [SerializeField] private int currentIndex = 0; // Index of the currently displayed middle platform
     private int maxIndex;
+    
+    public List<GameObject> spawnedObjects = new List<GameObject>();
 
+    private Coroutine _scrollCoroutine;
+    private bool _scrolling;
     private void Awake()
     {
-        maxIndex = platforms.Count - 1;
+        spawnedObjects = testSpawner.SpawnModels();
+        maxIndex = spawnedObjects.Count-1;
+        currentIndex = Mathf.Clamp(currentIndex, 0, maxIndex);
         InitializePlatforms();
     }
 
     [Button]
     private void InitializePlatforms()
     {
-        // Set initial positions based on currentIndex
-        for (int i = 0; i < platforms.Count; i++)
+        if (_scrollCoroutine == null)
         {
-            if (i == currentIndex)
-            {
-                platforms[i].transform.position = middleTransform.position;
-            }
-            else if (i == currentIndex + 1 && currentIndex < maxIndex)
-            {
-                platforms[i].transform.position = rightTransform.position;
-            }
-            else
-            {
-                platforms[i].transform.position = leftTransform.position;
-                platforms[i].SetActive(false); // Deactivate platforms off-screen
-            }
+            _scrollCoroutine = StartCoroutine(ScrollPlatforms(scrollDistance * currentIndex));
         }
+        
     }
 
     public void LeftButtonClicked()
     {
-        if (currentIndex > 0) // Prevent going beyond the left edge
+        if (currentIndex == 0) return;
+
+        if (_scrollCoroutine == null)
         {
             currentIndex--;
-            StartCoroutine(ScrollLeft());
+            _scrollCoroutine = StartCoroutine(ScrollPlatforms(-scrollDistance));
         }
     }
-
-    private IEnumerator ScrollLeft()
-    {
-        // Move middle platform to the left
-        yield return LMotion.Create(middleTransform.position, leftTransform.position, scrollSpeed)
-            .BindToPosition(platforms[currentIndex].transform);
-
-        // Move right platform to the middle
-        yield return LMotion.Create(rightTransform.position, middleTransform.position, scrollSpeed)
-            .BindToPosition(platforms[currentIndex + 1].transform);
-
-        // Activate the new right platform
-        if (currentIndex + 2 <= maxIndex)
-        {
-            platforms[currentIndex + 2].SetActive(true);
-        }
-
-        // Update platform positions for the next frame
-        InitializePlatforms();
-    }
-
+    
     public void RightButtonClicked()
     {
-        if (currentIndex < maxIndex - 1) // Prevent going beyond the right edge
+        if (currentIndex == maxIndex) return;
+        
+        if (_scrollCoroutine == null)
         {
             currentIndex++;
-            StartCoroutine(ScrollRight());
+            _scrollCoroutine = StartCoroutine(ScrollPlatforms(scrollDistance));
         }
+        
     }
 
-    private IEnumerator ScrollRight()
+    /// <summary>
+    /// Call the function to scroll the platforms left or right.
+    /// Left  : Give negative value. 
+    /// Right : Give positive value.
+    /// </summary>
+    /// <param name="scrollDistance"></param>
+    private IEnumerator ScrollPlatforms(float scrollDistance)
     {
-        // Move left platform to the middle
-        yield return LMotion.Create(leftTransform.position, middleTransform.position, scrollSpeed)
-            .BindToPosition(platforms[currentIndex].transform);
-
-        // Move middle platform to the right
-        yield return LMotion.Create(middleTransform.position, rightTransform.position, scrollSpeed)
-            .BindToPosition(platforms[currentIndex + 1].transform);
-
-        // Deactivate the previous left platform
-        if (currentIndex - 1 >= 0)
+        for (var i = 0; i < spawnedObjects.Count; i++)
         {
-            platforms[currentIndex - 1].SetActive(false);
+            var platform = spawnedObjects[i].GetComponent<Platform>();
+            var presentPlatformPos = platform.transform.position;
+            var targetPlatformPos = presentPlatformPos;
+            targetPlatformPos.x = presentPlatformPos.x + scrollDistance;
+
+            yield return LMotion.Create(presentPlatformPos, targetPlatformPos, scrollSpeed)
+                .BindToPosition(platform.transform);
+
+            if (i == currentIndex)
+            {
+                platform.Enlarge();
+            }
+            else
+            {
+                platform.Small();
+            }
         }
 
-        // Update platform positions for the next frame
-        InitializePlatforms();
+        yield return new WaitForSeconds(scrollSpeed);
+        _scrollCoroutine = null;
     }
-}
+    
+} // Class end

@@ -12,23 +12,23 @@ public class TestSpawner : MonoBehaviour
     [SerializeField] private List<Material> innerBodyMats;
     [SerializeField] private List<Material> outerBodyMats;
     
-    public List<Platform> spawnedObjects = new List<Platform>();
+    
 
     private void Start()
     {
-        SpawnModels();
+        
     }
 
-    private void SpawnModels()
+    public List<GameObject> SpawnModels()
     {
         var platformSpawnPosition = transform.position;
         platformSpawnPosition.x += 5.0f;
-        
+        var spawnedObjects = new List<GameObject>();
         for(var i = 0; i < animHolder.animations.Count; i++)
         {
             platformSpawnPosition.x -= 5.0f;
             var plat = Instantiate(platForm, platformSpawnPosition, quaternion.identity);
-            plat.SetIndexValue(i);
+            plat.SetIndexValue(i, animHolder.animations[i].name);
 
             var characterSpawnPosition = platformSpawnPosition;
             characterSpawnPosition.y += 0.2f;
@@ -39,7 +39,8 @@ public class TestSpawner : MonoBehaviour
             character.outerBody.SetMaterials(new List<Material> { outerBodyMats[i] });
             
             character.PlaySpecificAnimation(i);
-            spawnedObjects.Add(plat);
+            spawnedObjects.Add(plat.gameObject);
         }
+        return spawnedObjects;
     }
 }
