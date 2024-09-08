@@ -5,12 +5,9 @@ using Alchemy.Inspector;
 using LitMotion;
 using LitMotion.Extensions;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuildingAnimator : MonoBehaviour
-
 {
-    
     [Serializable]
     public class ScaleHolder
     {
@@ -55,7 +52,7 @@ public class BuildingAnimator : MonoBehaviour
         enlargeBuildingCoroutine = StartCoroutine(ShrinkBuildingItems(animationSpeed, easeType));
     }
 
-    public IEnumerator ShrinkBuildingItems(float animationSpeed, Ease easeType)
+    private IEnumerator ShrinkBuildingItems(float animationSpeed, Ease easeType)
     {
         for (var index = buildingParts.Count-1; index > -1; index--)
         {
@@ -64,15 +61,12 @@ public class BuildingAnimator : MonoBehaviour
             {
                 yield return StartCoroutine(buildingPart.scaleTransform.GetComponent<BuildingAnimator>()
                     .ShrinkBuildingItems(animationSpeed, easeType));
-                
-                // buildingPart.scaleTransform.localScale = Vector3.zero;
             }
             else
             {
                 yield return LMotion.Create(buildingPart.initialScale, Vector3.zero, animationSpeed)
                     .WithEase(easeType)
                     .BindToLocalScale(buildingPart.scaleTransform);
-                // .ToYieldInteraction();
             }
         }
 
@@ -81,13 +75,12 @@ public class BuildingAnimator : MonoBehaviour
     }
 
 
-    public IEnumerator EnlargeBuildingItems(float animationSpeed, Ease easeType)
+    private IEnumerator EnlargeBuildingItems(float animationSpeed, Ease easeType)
     {
         foreach (var buildingPart in buildingParts)
         {
             if (buildingPart.scaleTransform.GetComponent<BuildingAnimator>())
             {
-                // buildingPart.scaleTransform.localScale = Vector3.one;
                 yield return StartCoroutine(buildingPart.scaleTransform.GetComponent<BuildingAnimator>().EnlargeBuildingItems(animationSpeed, easeType));
             }
             else
@@ -95,7 +88,6 @@ public class BuildingAnimator : MonoBehaviour
                 yield return LMotion.Create(Vector3.zero, buildingPart.initialScale, animationSpeed)
                     .WithEase(easeType)
                     .BindToLocalScale(buildingPart.scaleTransform);
-                // .ToYieldInteraction();
             }
         }
 
@@ -119,11 +111,10 @@ public class BuildingAnimator : MonoBehaviour
     }
 
     // [Button]
-    public void SetSizeZero()
+    private void SetSizeZero()
     {
         foreach (var buildingPart in buildingParts)
         {
-            // buildingPart.scaleTransform.localScale = Vector3.zero;
             if (buildingPart.scaleTransform.GetComponent<BuildingAnimator>())
             {
                 buildingPart.scaleTransform.GetComponent<BuildingAnimator>().SetSizeZero();
