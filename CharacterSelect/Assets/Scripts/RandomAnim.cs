@@ -16,7 +16,7 @@ public class RandomAnim : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        // StartAnimation();
+        StartAnimation();
     }
 
     private void StartAnimation()
