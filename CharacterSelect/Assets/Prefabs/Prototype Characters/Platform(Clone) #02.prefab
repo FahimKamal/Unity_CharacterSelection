@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animHolder: {fileID: 11400000, guid: 23df52787a5eea54a817be4f46781558, type: 2}
-  animationIndex: -1
+  animationIndex: 1
   loopAnimation: 1
   innerBody: {fileID: 8484821243934758474}
   outerBody: {fileID: 3199803144864339986}
