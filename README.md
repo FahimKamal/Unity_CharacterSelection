@@ -9,3 +9,13 @@ objects in my game.
 
 https://github.com/user-attachments/assets/ccf21f83-68b2-4241-8530-25b5b51d1b8f
 
+## Prototype environment
+
+![image](https://github.com/user-attachments/assets/74b0fc6e-2066-4821-9e8c-5182e630a55e)
+
+### Character Selection Scene 2.0
+https://github.com/user-attachments/assets/830918c8-064c-483f-bf70-69211a9ee149
+
+The aim is to give each characater a unique environment and show case it, from where they came from or where the characters will 
+be playing at while in the selection menu. 
+
