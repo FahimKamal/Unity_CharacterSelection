@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Alchemy.Inspector;
@@ -11,7 +10,7 @@ public class CharEnvScroll : MonoBehaviour
     [SerializeField] private List<CharItem> charItemList;
     [SerializeField] private float scrollSpeed = 0.5f;
     [SerializeField] private float scrollDistance = 30f;
-    [SerializeField] private int currentIndex = 0; // Index of the currently displayed middle platform
+    [SerializeField] private int currentIndex = 0; 
     private int maxIndex;
     
     public CharItem currentlySelectedCharItem;
@@ -46,12 +45,10 @@ public class CharEnvScroll : MonoBehaviour
     {
         if (currentIndex == 0) return;
 
-        if (scrollCoroutine == null)
-        {
-            // charItemList[currentIndex].Shrink();
-            currentIndex--;
-            scrollCoroutine = StartCoroutine(ScrollItems(currentIndex));
-        }
+        if (scrollCoroutine != null) return;
+        
+        currentIndex--;
+        scrollCoroutine = StartCoroutine(ScrollItems(currentIndex));
     }
 
    
@@ -59,13 +56,11 @@ public class CharEnvScroll : MonoBehaviour
     public void RightButtonClicked()
     {
         if (currentIndex == maxIndex) return;
+
+        if (scrollCoroutine != null) return;
         
-        if (scrollCoroutine == null)
-        {
-            // charItemList[currentIndex].Shrink();
-            currentIndex++;
-            scrollCoroutine = StartCoroutine(ScrollItems(currentIndex));
-        }
+        currentIndex++;
+        scrollCoroutine = StartCoroutine(ScrollItems(currentIndex));
     }
 
     private IEnumerator ScrollItems(int index)
@@ -82,8 +77,6 @@ public class CharEnvScroll : MonoBehaviour
     
     private IEnumerator ScrollPlatforms(float scrollDistance)
     {
-        // charItemList[currentIndex].Shrink();
-        yield return new WaitForSeconds(scrollSpeed);
         for (var index = 0; index < charItemList.Count; index++)
         {
             var charItem = charItemList[index];
@@ -102,8 +95,6 @@ public class CharEnvScroll : MonoBehaviour
                 charItem.Enlarge();
             }
         }
-
-        // yield return new WaitForSeconds(scrollSpeed);
         scrollCoroutine = null;
     }
 }

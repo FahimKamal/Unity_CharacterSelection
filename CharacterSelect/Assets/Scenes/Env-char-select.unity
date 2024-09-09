@@ -1289,7 +1289,7 @@ MonoBehaviour:
   - {fileID: 1727643741}
   scrollSpeed: 1.5
   scrollDistance: 30
-  currentIndex: 0
+  currentIndex: 3
   currentlySelectedCharItem: {fileID: 0}
   easeType: 0
 --- !u!4 &2131187167
