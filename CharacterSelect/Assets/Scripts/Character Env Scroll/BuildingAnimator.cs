@@ -29,7 +29,7 @@ public class BuildingAnimator : MonoBehaviour
     }
 
     [Button]
-    public void EnlargeItems()
+    public Coroutine EnlargeItems()
     {
         if (enlargeBuildingCoroutine != null)
         {
@@ -37,19 +37,21 @@ public class BuildingAnimator : MonoBehaviour
         }
 
         enlargeBuildingCoroutine = StartCoroutine(EnlargeBuildingItems(animationSpeed, easeType));
+        return enlargeBuildingCoroutine;
     }
 
     [Button]
-    public void ShrinkItems()
+    public Coroutine ShrinkItems()
     {
         if (enlargeBuildingCoroutine != null)
         {
             Debug.Log("Enlarge Building Items not complete.");
-            return;
+            return null;
         }
 
         Debug.Log("Shrink Building Items starting.");
         enlargeBuildingCoroutine = StartCoroutine(ShrinkBuildingItems(animationSpeed, easeType));
+        return enlargeBuildingCoroutine;
     }
 
     private IEnumerator ShrinkBuildingItems(float animationSpeed, Ease easeType)

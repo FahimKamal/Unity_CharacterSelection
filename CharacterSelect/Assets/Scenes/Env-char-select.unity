@@ -1287,9 +1287,10 @@ MonoBehaviour:
   - {fileID: 96430461}
   - {fileID: 534853771}
   - {fileID: 1727643741}
-  scrollSpeed: 0.5
+  scrollSpeed: 1.5
   scrollDistance: 30
   currentIndex: 0
+  currentlySelectedCharItem: {fileID: 0}
   easeType: 0
 --- !u!4 &2131187167
 Transform:
@@ -1535,6 +1536,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Char #01
       objectReference: {fileID: 0}
+    - target: {fileID: 1697842028449421476, guid: 7ec747d127e1e8a40a9f440735879c3a,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6602713995838037479, guid: 7ec747d127e1e8a40a9f440735879c3a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1652,6 +1658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8441683596834655218, guid: d6d6f828532afc949b7bef90eab9d9d3,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

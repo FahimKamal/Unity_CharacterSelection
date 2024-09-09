@@ -13,7 +13,7 @@ public class RandomAnim : MonoBehaviour
     private Animator _animator;
     private Coroutine animationCoroutine; 
 
-    private void Awake()
+    private void OnEnable()
     {
         _animator = GetComponent<Animator>();
         StartAnimation();
@@ -60,6 +60,8 @@ public class RandomAnim : MonoBehaviour
     {
         while (true)
         {
+            gameObject.transform.localPosition = Vector3.zero;
+            gameObject.transform.localRotation = Quaternion.identity;
             // Error handling: Check if animHolder is assigned and has animations
             if (animHolder == null || animHolder.animations.Count == 0)
             {
@@ -80,6 +82,8 @@ public class RandomAnim : MonoBehaviour
 
     private IEnumerator PlaySpecificAnimationCoroutine(int index)
     {
+        gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.localRotation = Quaternion.identity;
         while (true)
         {
             // Error handling: Check if index is within valid range

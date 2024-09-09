@@ -14,6 +14,8 @@ public class CharEnvScroll : MonoBehaviour
     [SerializeField] private int currentIndex = 0; // Index of the currently displayed middle platform
     private int maxIndex;
     
+    public CharItem currentlySelectedCharItem;
+    
     [SerializeField] private Ease easeType = Ease.Linear;
     
     private Coroutine scrollCoroutine;
@@ -23,12 +25,20 @@ public class CharEnvScroll : MonoBehaviour
     {
         maxIndex = charItemList.Count-1;
         currentIndex = Mathf.Clamp(currentIndex, 0, maxIndex);
+        
         InitializePlatforms();
     }
 
     private void InitializePlatforms()
     {
-        scrollCoroutine = StartCoroutine(ScrollPlatforms(-scrollDistance * currentIndex));
+        foreach (var charItem in charItemList)
+        {
+            charItem.transform.position = Vector3.zero;
+            charItem.gameObject.SetActive(false);
+        }
+        currentlySelectedCharItem = charItemList[currentIndex];
+        currentlySelectedCharItem.gameObject.SetActive(true);
+        currentlySelectedCharItem.Enlarge();
     }
 
     [Button]
@@ -38,9 +48,9 @@ public class CharEnvScroll : MonoBehaviour
 
         if (scrollCoroutine == null)
         {
-            charItemList[currentIndex].Shrink();
+            // charItemList[currentIndex].Shrink();
             currentIndex--;
-            scrollCoroutine = StartCoroutine(ScrollPlatforms(scrollDistance));
+            scrollCoroutine = StartCoroutine(ScrollItems(currentIndex));
         }
     }
 
@@ -52,10 +62,22 @@ public class CharEnvScroll : MonoBehaviour
         
         if (scrollCoroutine == null)
         {
-            charItemList[currentIndex].Shrink();
+            // charItemList[currentIndex].Shrink();
             currentIndex++;
-            scrollCoroutine = StartCoroutine(ScrollPlatforms(-scrollDistance));
+            scrollCoroutine = StartCoroutine(ScrollItems(currentIndex));
         }
+    }
+
+    private IEnumerator ScrollItems(int index)
+    {
+        currentlySelectedCharItem.Shrink();
+        yield return new WaitForSeconds(scrollSpeed);
+        currentlySelectedCharItem.gameObject.SetActive(false);
+        currentlySelectedCharItem = charItemList[index];
+        currentlySelectedCharItem.gameObject.SetActive(true);
+        currentlySelectedCharItem.Enlarge();
+        yield return new WaitForSeconds(scrollSpeed);
+        scrollCoroutine = null;
     }
     
     private IEnumerator ScrollPlatforms(float scrollDistance)
