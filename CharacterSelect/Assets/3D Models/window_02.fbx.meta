@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3346832e447eff7419f08900e394c225
+guid: 57f05eb4e8facb74db56ecefc6a45b6f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BASE_COLOR
-    second: {fileID: 2100000, guid: e069468f82ceede48a2f0f7c5c355d0a, type: 2}
+    second: {fileID: 2100000, guid: b9bb6c1f51a02b941aea30b04888962f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
