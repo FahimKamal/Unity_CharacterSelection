@@ -37,6 +37,17 @@ public class CharItem : MonoBehaviour
             buildingAnimator.EnlargeItems();
         }
     }
+    
+    public void Enlarge(float animationTime)
+    {
+        isEnlarged = true;
+        characterPlatform.localPosition = Vector3.zero;
+        CharacterEntre();
+        foreach (var buildingAnimator in BuildingAnimatorList)
+        {
+            buildingAnimator.EnlargeItems(animationTime);
+        }
+    }
 
     [Button]
     public void Shrink()
@@ -51,6 +62,22 @@ public class CharItem : MonoBehaviour
         foreach (var buildingAnimator in BuildingAnimatorList)
         {
             buildingAnimator.ShrinkItems();
+        }
+        isEnlarged = false;
+    }
+    
+    public void Shrink(float animationTime)
+    {
+        if (!isEnlarged)
+        {
+            return;
+        }
+        characterPlatform.localPosition = Vector3.zero;
+        CharacterExit();
+        
+        foreach (var buildingAnimator in BuildingAnimatorList)
+        {
+            buildingAnimator.ShrinkItems(animationTime);
         }
         isEnlarged = false;
     }

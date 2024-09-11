@@ -39,9 +39,33 @@ public class BuildingAnimator : MonoBehaviour
         enlargeBuildingCoroutine = StartCoroutine(EnlargeBuildingItems(animationSpeed, easeType));
         return enlargeBuildingCoroutine;
     }
+    
+    public Coroutine EnlargeItems(float animationSpeed)
+    {
+        if (enlargeBuildingCoroutine != null)
+        {
+            enlargeBuildingCoroutine = null;
+        }
+
+        enlargeBuildingCoroutine = StartCoroutine(EnlargeBuildingItems(animationSpeed, easeType));
+        return enlargeBuildingCoroutine;
+    }
 
     [Button]
     public Coroutine ShrinkItems()
+    {
+        if (enlargeBuildingCoroutine != null)
+        {
+            Debug.Log("Enlarge Building Items not complete.");
+            return null;
+        }
+
+        Debug.Log("Shrink Building Items starting.");
+        enlargeBuildingCoroutine = StartCoroutine(ShrinkBuildingItems(animationSpeed, easeType));
+        return enlargeBuildingCoroutine;
+    }
+    
+    public Coroutine ShrinkItems(float animationSpeed)
     {
         if (enlargeBuildingCoroutine != null)
         {
