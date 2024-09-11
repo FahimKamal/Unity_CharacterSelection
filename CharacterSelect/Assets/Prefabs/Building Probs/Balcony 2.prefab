@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8172876859888253783}
   - component: {fileID: 7892207593654095375}
   m_Layer: 0
-  m_Name: Balcony
+  m_Name: Balcony 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
