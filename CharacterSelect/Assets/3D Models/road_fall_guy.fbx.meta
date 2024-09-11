@@ -3,7 +3,22 @@ guid: 72f446cecf6acef4e980e6d77786724e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base_color
+    second: {fileID: 2100000, guid: 2cd6227a0f6a06d419198fa654b3cae1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Road_color01
+    second: {fileID: 2100000, guid: b807698efe3957b429580530858a9013, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: road_color02
+    second: {fileID: 2100000, guid: b4b421a8cc51f364f90131782f1b3c0c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
