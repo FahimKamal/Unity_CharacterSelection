@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Modular Buildings and Character Animation/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/BlackScene.unity
+    path: Assets/Modular Buildings and Character Animation/Scenes/BlackScene.unity
     guid: 20ecf920d85b27f46b32b52ad836b797
   m_configObjects: {}
